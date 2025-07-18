@@ -1,0 +1,105 @@
+  <div>
+          <div className="w-full border1-4 border1-red-800 mr-0 text-white px-2 py-3 overflow-hidden">
+            <Card>
+              <div className="text-center ">
+                <Typography
+                  variant="h6"
+                  color="blue"
+                  className="text-black font-semibold tracking-[0.7em]"
+                >
+                  Apparel Pro
+                </Typography>
+              </div>
+              {/* <Typography variant="h4" className="border-4 border-blue-500">
+                Heading 1
+              </Typography> */}
+              <Box>
+                <List className="flex1 flex-col m-auto justify-around border1-cyan-500 mt-0">
+                  {/* {navbarData.map((menu) => {
+                    counter++; */}
+                  return (
+                  <Accordion
+                    expanded={open === counter}
+                    onChange={(event) => handleChange(event)}
+                  >
+                    <ListItem
+                      className="p-0"
+                      id={counter.toString()}
+                      style={{
+                        backgroundColor: "black",
+                        color: "white",
+                      }}
+                    >
+                      <AccordionSummary
+                        expandIcon={
+                          <ExpandMoreOutlined
+                            htmlColor="#f3f3f3"
+                            className="bg-black"
+                          />
+                        }
+                      >
+                        <Typography variant="h5">sub heading 1</Typography>
+                      </AccordionSummary>
+                    </ListItem>
+
+                    <AccordionDetails>
+                      {/* {menu.subMenus &&
+                            menu.subMenus.map((subMenu) => {
+                              return (
+                                <ListItem
+                                  className="text1-center p-1 mx-0 h-[2em] rounded-md"
+                                  key={subMenu.label}
+                                >
+                                  <div className="w-full">
+                                    <Menu
+                                      subMenus={null}
+                                      label={subMenu.label}
+                                      icon=""
+                                      routerLink={subMenu.routerLink}
+                                    />
+                                  </div>
+                                </ListItem>
+                              );
+                            })} */}
+                      <List className="p-0">
+                        <ListItem>menu 1</ListItem>
+                        <ListItem>menu 2</ListItem>
+                        <ListItem>menu 3</ListItem>
+                        <ListItem>menu 4</ListItem>
+                      </List>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Fugit incidunt hic iusto suscipit iure ratione magnam amet
+                      consequuntur a totam debitis soluta sequi earum
+                      architecto, nisi aperiam, harum ea itaque!
+                    </AccordionDetails>
+                  </Accordion>
+                  );
+                  {/* })} */}
+                </List>
+              </Box>
+              <Box>
+                <Accordion
+                  expanded={open === 2}
+                  onChange={(event) => handleChange(event)}
+                >
+                  <AccordionSummary expandIcon={<ExpandMoreOutlined />}>
+                    <Typography variant="h5">sub heading 2</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <List>
+                      <ListItem>menu 5</ListItem>
+                      <ListItem>menu 6</ListItem>
+                      <ListItem>menu 7</ListItem>
+                      <ListItem>menu 8</ListItem>
+                    </List>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Fugit incidunt hic iusto suscipit iure ratione magnam amet
+                    consequuntur a totam debitis soluta sequi earum architecto,
+                    nisi aperiam, harum ea itaque!
+                  </AccordionDetails>
+                </Accordion>
+              </Box>
+            </Card>
+          </div>
+        </div>
+      </div>
