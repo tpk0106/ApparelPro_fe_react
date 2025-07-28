@@ -150,7 +150,6 @@ export const useUpdateBuyer = (pagination: MRT_PaginationState) => {
   });
 };
 
-// CREATE hook (post new buyer to api)
 export const useCreateBuyer = (
   pagination: MRT_PaginationState,
   paginate: PaginationData
@@ -328,7 +327,6 @@ export const useUpdateBank = (pagination: MRT_PaginationState) => {
   });
 };
 
-// CREATE hook (post new user to api)
 export const useCreateBank = () => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -339,7 +337,6 @@ export const useCreateBank = () => {
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newBank: Bank) => {
       queryClient.setQueryData(
         ["banks"],
@@ -367,18 +364,14 @@ export const useCreateBank = () => {
   });
 };
 
-// //DELETE hook (delete bank in api)
 export const useDeleteBank = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (bankCode: string) => {
-      //send api update request here
       const response = dispatch(deleteBankStart(bankCode));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: (bankCode: string) => {
       queryClient.setQueryData(
@@ -437,12 +430,10 @@ export const useUpdateBuyerAddress = (pagination: MRT_PaginationState) => {
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (address: Address) => {
-      //send api update request here
       const res = dispatch(updateBuyerAddressStart({ ...address }));
       return res.payload;
     },
 
-    // client side optimistic update
     onMutate: (editAddress: Address) => {
       queryClient.setQueryData(
         ["buyerAddresses", pagination.pageSize, pagination.pageIndex],
@@ -488,7 +479,6 @@ interface deleteBuyerAddressParams {
   addressId: string;
 }
 
-// //DELETE hook (delete buyer address in api)
 export const useDeleteBuyerAddress = (
   pagination: MRT_PaginationState,
   paginate: PaginationData,
@@ -500,13 +490,9 @@ export const useDeleteBuyerAddress = (
 
   return useMutation({
     mutationFn: async ({ id, addressId }) => {
-      //send api update request here
-
       const response = dispatch(deleteBuyerAddressStart(id, addressId));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: ({ addressId }: deleteBuyerAddressParams) => {
       queryClient.setQueryData(
@@ -545,7 +531,6 @@ export const useDeleteBuyerAddress = (
   });
 };
 
-// CREATE hook (post new user to api)
 export const useCreateBuyerAddress = (
   pagination: MRT_PaginationState,
   paginate: PaginationData,
@@ -561,7 +546,6 @@ export const useCreateBuyerAddress = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newBuyerAddress: Address) => {
       queryClient.setQueryData(
         ["buyerAddresses", pagination.pageSize, pagination.pageIndex],
@@ -620,7 +604,6 @@ export const useGetSuppliers = (
   });
 };
 
-// CREATE hook (post new buyer to api)
 export const useCreateSupplier = (
   pagination: MRT_PaginationState,
   paginate: PaginationData
@@ -634,7 +617,6 @@ export const useCreateSupplier = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newSupplier: Supplier) => {
       queryClient.setQueryData(
         ["suppliers", pagination?.pageSize, pagination?.pageIndex],
@@ -676,7 +658,6 @@ export const useCreateSupplier = (
   });
 };
 
-// UPDATE hook, (put buyer in api)
 export const useUpdateSupplier = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -686,7 +667,6 @@ export const useUpdateSupplier = (pagination: MRT_PaginationState) => {
       return res.payload;
     },
 
-    // client side optimistic update
     onMutate: (editSupplier: Supplier) => {
       queryClient.setQueryData(
         ["suppliers", pagination?.pageSize, pagination?.pageIndex],
@@ -703,7 +683,6 @@ export const useUpdateSupplier = (pagination: MRT_PaginationState) => {
       console.log("onError", error);
     },
 
-    //refetch suppliers after mutation,
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ["suppliers"],
@@ -722,18 +701,14 @@ export const useUpdateSupplier = (pagination: MRT_PaginationState) => {
   });
 };
 
-// //DELETE hook (delete bank in api)
 export const useDeleteSupplier = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (supplierCode: number) => {
-      //send api update request here
       const response = dispatch(deleteSupplierStart(supplierCode));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: (supplierCode: number) => {
       queryClient.setQueryData(
@@ -759,9 +734,7 @@ export const useDeleteSupplier = (pagination: MRT_PaginationState) => {
   });
 };
 
-// CREATE hook (post new user to api)
 export const useCreateSupplierAddress = (
-  // pagination: MRT_PaginationState,
   paginate: PaginationData,
   currentSupplierPageNumber: number,
   currentSupplierPageSize: number
@@ -776,9 +749,7 @@ export const useCreateSupplierAddress = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newSupplierAddress: Address) => {
-      //console.log("onMutate :", pagination);
       queryClient.setQueryData(
         [
           "supplierAddresses",
@@ -821,16 +792,13 @@ export const useUpdateSupplierAddress = (pagination: MRT_PaginationState) => {
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (address: Address) => {
-      //send api update request here
       const res = dispatch(updateSupplierAddressStart({ ...address }));
       return res.payload;
     },
 
-    // client side optimistic update
     onMutate: (editAddress: Address) => {
       queryClient.setQueryData(
         ["supplierAddresses", pagination.pageSize, pagination.pageIndex],
-        // ["supplierAddresses"],
         (prevAaddresses: Address[]) =>
           prevAaddresses?.map((prevAddress: Address) => {
             return prevAddress.addressId === editAddress.addressId
@@ -876,7 +844,8 @@ interface deleteSupplierAddressParams {
   id: number;
   addressId: string;
 }
-// //DELETE hook (delete buyer address in api)
+
+// //DELETE hook (delete supplier address in api)
 export const useDeleteSupplierAddress = (
   pagination: MRT_PaginationState,
   paginate: PaginationData,
@@ -934,8 +903,6 @@ export const useDeleteSupplierAddress = (
 };
 
 // Port Destination
-
-// READ hook, (get PortDestination in api)
 export const useGetPortDestinations = (
   paginate: PaginationData,
   pagination: MRT_PaginationState
@@ -958,7 +925,6 @@ export const useGetPortDestinations = (
   });
 };
 
-// CREATE hook (post new buyer to api)
 export const useCreatePortDestination = (
   pagination: MRT_PaginationState,
   paginate: PaginationData
@@ -972,7 +938,6 @@ export const useCreatePortDestination = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newPortDestination: PortDestination) => {
       queryClient.setQueryData(
         ["portDestinations", pagination?.pageSize, pagination?.pageIndex],
@@ -1008,7 +973,6 @@ export const useCreatePortDestination = (
   });
 };
 
-// UPDATE hook, (put PortDestination in api)
 export const useUpdatePortDestination = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -1018,7 +982,6 @@ export const useUpdatePortDestination = (pagination: MRT_PaginationState) => {
       return res.payload;
     },
 
-    // client side optimistic update
     onMutate: (editPortDestination: PortDestination) => {
       queryClient.setQueryData(
         ["portDestinations", pagination?.pageSize, pagination?.pageIndex],
@@ -1037,16 +1000,12 @@ export const useUpdatePortDestination = (pagination: MRT_PaginationState) => {
       console.log("onError", error);
     },
 
-    //refetch portDestinations after mutation,
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ["portDestinations"],
         refetchType: "all",
       });
 
-      // refetch queries based on certain conditions.
-      // refetch all active queries exactly matching a query key:
-      //queryKey: ["portDestinations", pagination.pageSize, pagination.pageIndex],
       queryClient.refetchQueries({
         queryKey: ["portDestinations"],
         type: "active",
@@ -1061,19 +1020,14 @@ type deletePortDestinationParams = {
   countryCode: string;
 };
 
-// //DELETE hook (delete bank in api)
 export const useDeletePortDestination = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async ({ id, countryCode }: deletePortDestinationParams) => {
-      //send api update request here
-
       const response = dispatch(deletePortDestinationStart(id, countryCode));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: ({ id, countryCode }: deletePortDestinationParams) => {
       queryClient.setQueryData(
@@ -1106,7 +1060,6 @@ export const useDeletePortDestination = (pagination: MRT_PaginationState) => {
 };
 
 // Garment Types
-// READ hook, (get PortDestination in api)
 export const useGetGarmentTypes = (
   paginate: PaginationData,
   pagination: MRT_PaginationState
@@ -1129,7 +1082,7 @@ export const useGetGarmentTypes = (
   });
 };
 
-// CREATE hook (post new buyer to api)
+// CREATE hook (post new garment type to api)
 export const useCreateGarmentType = (
   pagination: MRT_PaginationState,
   paginate: PaginationData
@@ -1143,7 +1096,6 @@ export const useCreateGarmentType = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newGarmentType: GarmentType) => {
       queryClient.setQueryData(
         ["garmentTypes", pagination?.pageSize, pagination?.pageIndex],
@@ -1179,7 +1131,6 @@ export const useCreateGarmentType = (
   });
 };
 
-// UPDATE hook, (put PortDestination in api)
 export const useUpdateGarmentType = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -1189,7 +1140,6 @@ export const useUpdateGarmentType = (pagination: MRT_PaginationState) => {
       return res.payload;
     },
 
-    // client side optimistic update
     onMutate: (editGarmentType: GarmentType) => {
       queryClient.setQueryData(
         ["garmentTypes", pagination?.pageSize, pagination?.pageIndex],
@@ -1207,16 +1157,12 @@ export const useUpdateGarmentType = (pagination: MRT_PaginationState) => {
       console.log("onError", error);
     },
 
-    //refetch portDestinations after mutation,
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ["garmentTypes"],
         refetchType: "all",
       });
 
-      // refetch queries based on certain conditions.
-      // refetch all active queries exactly matching a query key:
-      //queryKey: ["portDestinations", pagination.pageSize, pagination.pageIndex],
       queryClient.refetchQueries({
         queryKey: ["garmentTypes"],
         type: "active",
@@ -1231,19 +1177,14 @@ export const useUpdateGarmentType = (pagination: MRT_PaginationState) => {
 //   countryCode: string;
 // };
 
-// //DELETE hook (delete bank in api)
 export const useDeleteGarmentType = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (id) => {
-      //send api update request here
-
       const response = dispatch(deleteGarmentTypeStart(id));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: (id: number) => {
       queryClient.setQueryData(
@@ -1271,8 +1212,6 @@ export const useDeleteGarmentType = (pagination: MRT_PaginationState) => {
 };
 
 // currency
-// READ hook, (get currency in api)
-
 export const useGetCurrencies = (
   paginate: PaginationData,
   pagination: MRT_PaginationState
@@ -1295,7 +1234,6 @@ export const useGetCurrencies = (
   });
 };
 
-// CREATE hook (post new buyer to api)
 export const useCreateCurrency = (
   pagination: MRT_PaginationState,
   paginate: PaginationData
@@ -1309,7 +1247,6 @@ export const useCreateCurrency = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newCurrency: Currency) => {
       queryClient.setQueryData(
         ["currencies", pagination?.pageSize, pagination?.pageIndex],
@@ -1345,7 +1282,7 @@ export const useCreateCurrency = (
   });
 };
 
-// UPDATE hook, (put PortDestination in api)
+// UPDATE hook, (put currency in api)
 export const useUpdateCurrency = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -1355,7 +1292,6 @@ export const useUpdateCurrency = (pagination: MRT_PaginationState) => {
       return res.payload;
     },
 
-    // client side optimistic update
     onMutate: (editCurrency: Currency) => {
       queryClient.setQueryData(
         ["currencies", pagination?.pageSize, pagination?.pageIndex],
@@ -1380,8 +1316,6 @@ export const useUpdateCurrency = (pagination: MRT_PaginationState) => {
         refetchType: "all",
       });
 
-      // refetch queries based on certain conditions.
-      // refetch all active queries exactly matching a query key:
       //queryKey: ["portDestinations", pagination.pageSize, pagination.pageIndex],
       queryClient.refetchQueries({
         queryKey: ["currencies"],
@@ -1397,19 +1331,14 @@ export const useUpdateCurrency = (pagination: MRT_PaginationState) => {
 //   countryCode: string;
 // };
 
-// //DELETE hook (delete bank in api)
 export const useDeleteCurrency = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (id) => {
-      //send api update request here
-
       const response = dispatch(deleteCurrencyStart(id));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: (id: number) => {
       queryClient.setQueryData(
@@ -1437,7 +1366,6 @@ export const useDeleteCurrency = (pagination: MRT_PaginationState) => {
 };
 
 // units
-// READ hook, (get currency in api)
 export const useGetUnits = (
   paginate: PaginationData,
   pagination: MRT_PaginationState
@@ -1460,7 +1388,6 @@ export const useGetUnits = (
   });
 };
 
-// CREATE hook (post new buyer to api)
 export const useCreateUnit = (
   pagination: MRT_PaginationState,
   paginate: PaginationData
@@ -1474,7 +1401,6 @@ export const useCreateUnit = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newUnit: Unit) => {
       queryClient.setQueryData(
         ["units", pagination?.pageSize, pagination?.pageIndex],
@@ -1510,7 +1436,6 @@ export const useCreateUnit = (
   });
 };
 
-// UPDATE hook, (put PortDestination in api)
 export const useUpdateUnit = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -1520,7 +1445,6 @@ export const useUpdateUnit = (pagination: MRT_PaginationState) => {
       return res.payload;
     },
 
-    // client side optimistic update
     onMutate: (editUnit: Unit) => {
       queryClient.setQueryData(
         ["units", pagination?.pageSize, pagination?.pageIndex],
@@ -1544,9 +1468,6 @@ export const useUpdateUnit = (pagination: MRT_PaginationState) => {
         refetchType: "all",
       });
 
-      // refetch queries based on certain conditions.
-      // refetch all active queries exactly matching a query key:
-      //queryKey: ["portDestinations", pagination.pageSize, pagination.pageIndex],
       queryClient.refetchQueries({
         queryKey: ["units"],
         type: "active",
@@ -1561,19 +1482,14 @@ export const useUpdateUnit = (pagination: MRT_PaginationState) => {
 //   countryCode: string;
 // };
 
-// //DELETE hook (delete bank in api)
 export const useDeleteUnit = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (id) => {
-      //send api update request here
-
       const response = dispatch(deleteUnitStart(id));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: (id: number) => {
       queryClient.setQueryData(
@@ -1600,7 +1516,6 @@ export const useDeleteUnit = (pagination: MRT_PaginationState) => {
 };
 
 // basis
-// READ hook, (get currency in api)
 export const useGetBasises = (
   paginate: PaginationData,
   pagination: MRT_PaginationState
@@ -1624,7 +1539,6 @@ export const useGetBasises = (
 };
 
 // PO
-// READ hook, (get currency in api)
 export const useGetPurchaseOrder = (po: PurchaseOrder) => {
   const dispatch = useDispatch();
 
@@ -1675,7 +1589,6 @@ export const useGetCurrencyConversions = (
   });
 };
 
-// CREATE hook (post new buyer to api)
 export const useCreateCurrencyConversion = (
   pagination: MRT_PaginationState,
   paginate: PaginationData
@@ -1691,7 +1604,6 @@ export const useCreateCurrencyConversion = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newCurrencyConversion: CurrencyConversion) => {
       queryClient.setQueryData(
         ["currencyConversions", pagination?.pageSize, pagination?.pageIndex],
@@ -1734,7 +1646,6 @@ type deleteCurrencyConversionParams = {
   date: Date;
 };
 
-// //DELETE hook (delete currencyConversion in api)
 export const useDeleteCurrencyConversion = (
   pagination: MRT_PaginationState
 ) => {
@@ -1742,12 +1653,9 @@ export const useDeleteCurrencyConversion = (
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (params: deleteCurrencyConversionParams) => {
-      //send api update request here
       const response = dispatch(deleteCurrencyConversionStart(params));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: (params: deleteCurrencyConversionParams) => {
       queryClient.setQueryData(
@@ -1778,7 +1686,6 @@ export const useDeleteCurrencyConversion = (
 
 // Currency Exchanges
 
-// READ hook, (get currencyConversions in api)
 export const useGetCurrencyExchanges = (
   paginate: PaginationData,
   pagination: MRT_PaginationState
@@ -1805,7 +1712,6 @@ export const useGetCurrencyExchanges = (
   });
 };
 
-// CREATE hook (post new currency exchange to api)
 export const useCreateCurrencyExchange = (
   pagination: MRT_PaginationState,
   paginate: PaginationData
@@ -1821,7 +1727,6 @@ export const useCreateCurrencyExchange = (
       return res.payload;
     },
 
-    //client side optimistic update
     onMutate: (newCurrencyExchange: CurrencyExchange) => {
       queryClient.setQueryData(
         ["currencyExchanges", pagination?.pageSize, pagination?.pageIndex],
@@ -1864,7 +1769,6 @@ type deleteCurrencyExchangeParams = {
   exchangeDate: Date;
 };
 
-// UPDATE hook, (put PortDestination in api)
 export const useUpdateCurrencyExchange = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
@@ -1876,7 +1780,6 @@ export const useUpdateCurrencyExchange = (pagination: MRT_PaginationState) => {
       return res.payload;
     },
 
-    // client side optimistic update
     onMutate: (editCurrencyExchange: CurrencyExchange) => {
       queryClient.setQueryData(
         ["units", pagination?.pageSize, pagination?.pageIndex],
@@ -1898,16 +1801,12 @@ export const useUpdateCurrencyExchange = (pagination: MRT_PaginationState) => {
       console.log("onError", error);
     },
 
-    //refetch portDestinations after mutation,
     onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ["units"],
         refetchType: "all",
       });
 
-      // refetch queries based on certain conditions.
-      // refetch all active queries exactly matching a query key:
-      //queryKey: ["portDestinations", pagination.pageSize, pagination.pageIndex],
       queryClient.refetchQueries({
         queryKey: ["units"],
         type: "active",
@@ -1917,18 +1816,14 @@ export const useUpdateCurrencyExchange = (pagination: MRT_PaginationState) => {
   });
 };
 
-// //DELETE hook (delete currencyConversion in api)
 export const useDeleteCurrencyExchange = (pagination: MRT_PaginationState) => {
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: async (params: deleteCurrencyExchangeParams) => {
-      //send api update request here
       const response = dispatch(deleteCurrencyExchangeStart(params));
       return response;
     },
-
-    //client side optimistic update
 
     onMutate: (params: deleteCurrencyExchangeParams) => {
       queryClient.setQueryData(
